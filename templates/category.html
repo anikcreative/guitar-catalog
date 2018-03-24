@@ -23,31 +23,32 @@
       <!-- Application Logo and Title -->
       <div class="app-info">
         <div class="app-logo"><img class="logo-img" src="" /></div>
-        <div class="app-name">Guitar Catalog</div>
-        <div class="app-author">Anik Bhattacharya</div>
-      </div>
-      <!-- Page/Asset Path (Breadcrumb) -->
-      <div class="breadcrumb">
-        <a href="{{url_for('catalogHome')}}">Home</a>
-         &gt; <a href="{{url_for('viewCategory',
-                      category_name = category.name)}}">{{category.name}}</a>
+        <span class="app-name">Guitar Catalog</span>
+        <span class="app-author">AnikCreative</span>
       </div>
     </header>
 
     <div class="content-wrapper" id="__CONTENT__">
 
       <!-- List of all guitar categories -->
-      <div class="content-container" id="all-categories">
+      <aside class="content-container categories-menu" id="all-categories">
         <h2>All Categories</h1>
         <ul id="list-categories">
           {% for c in categories %}
           <li><a href="{{url_for('viewCategory', category_name=c.name)}}">{{c.name}}</a></li>
           {% endfor %}
         </ul>
-      </div>
+      </aside>
 
-      <!-- Main page content -->
-      <div class="content-container" id="main-content">
+      <!-- Category contents -->
+      <article class="content-container" id="category-contents">
+        <!-- Page/Asset Path (Breadcrumb) -->
+        <div class="breadcrumb">
+          <a href="{{url_for('catalogHome')}}">Home</a>
+           &gt; <a href="{{url_for('viewCategory',
+                        category_name = category.name)}}">{{category.name}}</a>
+        </div>
+
         <h1>{{category.name}}</h1>
         <p>
           {{category.description}}
@@ -55,23 +56,23 @@
 
         <h3>Guitars in this category</h3>
         <span>Click an item to view details.</span>
-        <ul id="items">
+        <ul class="item-list" id="guitars-in-category">
           {% for gtr in items %}
-          <li class="item-container">
-            <a href="{{url_for('viewGuitar',
-                    category_name=category.name,
-                    guitar_slug=gtr.slug)}}">
+          <a href="{{url_for('viewGuitar',
+                  category_name=category.name,
+                  guitar_slug=gtr.slug)}}">
+            <li class="item-container">
               <img class="item-thumbnail"
                    src="{{url_for('static',
                                   filename=('assets/img/guitars/' + gtr.slug+'.jpg'))}}"
                    width="40" height="90"/>
               <h4 class="item-title">{{gtr.name}}</h4>
               <span class="item-views">{{gtr.views}} views</span>
-            </a>
-          </li>
+            </li>
+          </a>
           {% endfor %}
         </ul>
-      </div>
+      </article>
 
     </div>
 

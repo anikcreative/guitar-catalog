@@ -23,34 +23,35 @@
       <!-- Application Logo and Title -->
       <div class="app-info">
         <div class="app-logo"><img class="logo-img" src="" /></div>
-        <div class="app-name">Guitar Catalog</div>
-        <div class="app-author">Anik Bhattacharya</div>
-      </div>
-      <!-- Page/Asset Path (Breadcrumb) -->
-      <div class="breadcrumb">
-        <a href="{{url_for('catalogHome')}}">Home</a>
-         &gt; <a href="{{url_for('viewCategory',
-                      category_name = category.name)}}">{{category.name}}</a>
-         &gt; <a href="{{url_for('viewGuitar',
-                      category_name = category.name,
-                      guitar_slug = item.slug)}}">{{item.name}}</a>
+        <span class="app-name">Guitar Catalog</span>
+        <span class="app-author">AnikCreative</span>
       </div>
     </header>
 
     <div class="content-wrapper" id="__CONTENT__">
 
       <!-- List of all guitar categories -->
-      <div class="content-container" id="all-categories">
+      <aside class="content-container categories-menu" id="all-categories">
         <h2>All Categories</h1>
         <ul id="list-categories">
           {% for c in categories %}
           <li><a href="{{url_for('viewCategory', category_name=c.name)}}">{{c.name}}</a></li>
           {% endfor %}
         </ul>
-      </div>
+      </aside>
 
-      <!-- Main page content -->
-      <div class="content-container" id="main-content">
+      <!-- Item information -->
+      <article class="content-container" id="item-information">
+        <!-- Page/Asset Path (Breadcrumb) -->
+        <div class="breadcrumb">
+          <a href="{{url_for('catalogHome')}}">Home</a>
+           &gt; <a href="{{url_for('viewCategory',
+                        category_name = category.name)}}">{{category.name}}</a>
+           &gt; <a href="{{url_for('viewGuitar',
+                        category_name = category.name,
+                        guitar_slug = item.slug)}}">{{item.name}}</a>
+        </div>
+
         <h1>{{item.name}}</h1>
         <span>{{item.views}} views</span>
         <img class="item-img"
@@ -59,7 +60,7 @@
         <p>
           {{item.description}}
         </p>
-      </div>
+      </article>
 
     </div>
 

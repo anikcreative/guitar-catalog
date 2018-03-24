@@ -23,60 +23,61 @@
       <!-- Application Logo and Title -->
       <div class="app-info">
         <div class="app-logo"><img class="logo-img" src="" /></div>
-        <div class="app-name">Guitar Catalog</div>
-        <div class="app-author">Anik Bhattacharya</div>
-      </div>
-      <!-- Page/Asset Path (Breadcrumb) -->
-      <div class="breadcrumb">
-        <a href="{{url_for('catalogHome')}}">Home</a>
+        <span class="app-name">Guitar Catalog</span>
+        <span class="app-author">AnikCreative</span>
       </div>
     </header>
 
     <div class="content-wrapper" id="__CONTENT__">
 
       <!-- List of all guitar categories -->
-      <div class="content-container" id="all-categories">
+      <aside class="content-container categories-menu" id="all-categories">
         <h2>All Categories</h1>
         <ul id="list-categories">
           {% for c in categories %}
           <li><a href="{{url_for('viewCategory', category_name=c.name)}}">{{c.name}}</a></li>
           {% endfor %}
         </ul>
-      </div>
+      </aside>
 
       <!-- Page description and instructions -->
-      <div class="content-container" id="page-desc">
+      <article class="content-container" id="page-desc">
+        <!-- Page/Asset Path (Breadcrumb) -->
+        <div class="breadcrumb">
+          <a href="{{url_for('catalogHome')}}">Home</a>
+        </div>
+
         <h1>Welcome!</h1>
         <p>
           This catalog contains information about some of the best-known and most widely-played guitars in the world. To get started, simply choose from one of the categories on the left, or check out the most-viewed guitars in the &#34;Most Popular&#34; section below.
 
           Authorized users can add new guitars to the catalog, edit information guitars in the catalog, or delete items. To proceed, please click the &#34;Sign In&#34; button at the top right.
         </p>
-      </div>
+      </article>
 
       <!-- Most popular guitars -->
-      <div class="content-container" id="most-popular">
+      <section class="content-container" id="most-popular">
         <h2>Most Popular</h2>
           <p>
             Here are the top ten most-viewed guitars in our catalog.
           </p>
-          <ul id="most-popular">
+          <ul class="item-list" id="most-popular">
             {% for gtr in most_popular %}
-            <li class="item-container">
-              <a href="{{url_for('viewGuitarWithCategoryId',
-                      category_id=gtr.category_id,
-                      guitar_slug=gtr.slug)}}">
+            <a href="{{url_for('viewGuitarWithCategoryId',
+                    category_id=gtr.category_id,
+                    guitar_slug=gtr.slug)}}">
+              <li class="item-container">
                 <img class="item-thumbnail"
                      src="{{url_for('static',
                                     filename=('assets/img/guitars/' + gtr.slug+'.jpg'))}}"
                      width="40" height="90"/>
                 <h4 class="item-title">{{gtr.name}}</h4>
                 <span class="item-views">{{gtr.views}} views</span>
-              </a>
-            </li>
+              </li>
+            </a>
             {% endfor %}
           </ul>
-      </div>
+      </section>
 
     </div>
 
