@@ -57,6 +57,9 @@ def viewGuitar(category_name, guitar_slug):
     all_categories = session.query(Category).all()
     category = session.query(Category).filter_by(name = category_name).one()
     guitar = session.query(Guitar).filter_by(slug = guitar_slug).one()
+    # add to the view counter for this item...
+    guitar.views += 1
+    # ...then, render html
     return render_template('item.html',
                            categories=all_categories,
                            category=category,
