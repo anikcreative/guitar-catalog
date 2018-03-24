@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Guitar Catalog | Home</title>
+
+    <meta name="description" content="Guitar Catalog, made with Python DBAPI">
+    <meta name="author" content="AnikCreative">
+    <link rel="stylesheet"
+          href="{{url_for('static', filename='theme/normalize.css')}}">
+    <link rel="stylesheet"
+          href="{{url_for('static', filename='theme/base.css')}}">
+    <link rel="stylesheet"
+          href="{{url_for('static', filename='theme/media.css')}}">
+
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <header>
+      <!-- Application Logo and Title -->
+      <div class="app-info">
+        <div class="app-logo"><img class="logo-img" src="" /></div>
+        <div class="app-name">Guitar Catalog</div>
+        <div class="app-author">Anik Bhattacharya</div>
+      </div>
+      <!-- Page/Asset Path (Breadcrumb) -->
+      <div class="breadcrumb">
+        <a href="{{url_for('catalogHome')}}">Home</a>
+      </div>
+    </header>
+
+    <div class="content-wrapper" id="__CONTENT__">
+
+      <!-- List of all guitar categories -->
+      <div class="content-container" id="all-categories">
+        <h2>All Categories</h1>
+        <ul id="list-categories">
+          {% for c in categories %}
+          <li><a href="{{url_for('viewCategory', category_name=c.name)}}">{{c.name}}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Page description and instructions -->
+      <div class="content-container" id="page-desc">
+        <h1>Welcome!</h1>
+        <p>
+          This catalog contains information about some of the best-known and most widely-played guitars in the world. To get started, simply choose from one of the categories on the left, or check out the most-viewed guitars in the &#34;Most Popular&#34; section below.
+
+          Authorized users can add new guitars to the catalog, edit information guitars in the catalog, or delete items. To proceed, please click the &#34;Sign In&#34; button at the top right.
+        </p>
+      </div>
+
+      <!-- Most popular guitars -->
+      <div class="content-container" id="most-popular">
+        <h2>Most Popular</h2>
+          <p>
+            Here are the top ten most-viewed guitars in our catalog.
+          </p>
+          <ul id="most-popular">
+            {% for gtr in most_popular %}
+            <li class="item-container">
+              <a href="{{url_for('viewGuitarWithCategoryId',
+                      category_id=gtr.category_id,
+                      guitar_slug=gtr.slug)}}">
+                <img class="item-thumbnail"
+                     src="{{url_for('static',
+                                    filename=('assets/img/guitars/' + gtr.slug+'.jpg'))}}"
+                     width="40" height="90"/>
+                <h4 class="item-title">{{gtr.name}}</h4>
+                <span class="item-views">{{gtr.views}} views</span>
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+      </div>
+
+    </div>
+
+  </body>
+</html>

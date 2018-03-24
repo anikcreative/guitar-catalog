@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Guitar Catalog | {{category.name}}</title>
+
+    <meta name="description" content="Guitar Catalog, made with Python DBAPI">
+    <meta name="author" content="AnikCreative">
+    <link rel="stylesheet"
+          href="{{url_for('static', filename='theme/normalize.css')}}">
+    <link rel="stylesheet"
+          href="{{url_for('static', filename='theme/base.css')}}">
+    <link rel="stylesheet"
+          href="{{url_for('static', filename='theme/media.css')}}">
+
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <header>
+      <!-- Application Logo and Title -->
+      <div class="app-info">
+        <div class="app-logo"><img class="logo-img" src="" /></div>
+        <div class="app-name">Guitar Catalog</div>
+        <div class="app-author">Anik Bhattacharya</div>
+      </div>
+      <!-- Page/Asset Path (Breadcrumb) -->
+      <div class="breadcrumb">
+        <a href="{{url_for('catalogHome')}}">Home</a>
+         &gt; <a href="{{url_for('viewCategory',
+                      category_name = category.name)}}">{{category.name}}</a>
+      </div>
+    </header>
+
+    <div class="content-wrapper" id="__CONTENT__">
+
+      <!-- List of all guitar categories -->
+      <div class="content-container" id="all-categories">
+        <h2>All Categories</h1>
+        <ul id="list-categories">
+          {% for c in categories %}
+          <li><a href="{{url_for('viewCategory', category_name=c.name)}}">{{c.name}}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Main page content -->
+      <div class="content-container" id="main-content">
+        <h1>{{category.name}}</h1>
+        <p>
+          {{category.description}}
+        </p>
+
+        <h3>Guitars in this category</h3>
+        <span>Click an item to view details.</span>
+        <ul id="items">
+          {% for gtr in items %}
+          <li class="item-container">
+            <a href="{{url_for('viewGuitar',
+                    category_name=category.name,
+                    guitar_slug=gtr.slug)}}">
+              <img class="item-thumbnail"
+                   src="{{url_for('static',
+                                  filename=('assets/img/guitars/' + gtr.slug+'.jpg'))}}"
+                   width="40" height="90"/>
+              <h4 class="item-title">{{gtr.name}}</h4>
+              <span class="item-views">{{gtr.views}} views</span>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+    </div>
+
+  </body>
+</html>
